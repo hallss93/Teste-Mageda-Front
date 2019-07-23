@@ -3,6 +3,7 @@
     <div id="caixa">
       <div id="caixa-bkg"></div>
       <img id="imagem" src="./../assets/sol.png" alt="Sol" />
+      <img id="arvore" src="./../assets/arvore.png" alt="Árvore" />
       <h3>Ângulo: {{angulo}}</h3>
     </div>
   </div>
@@ -34,8 +35,12 @@ export default {
 
       let deg = (360 / 100) * percentual;
       that.angulo = deg.toFixed(1);
-	  if(percentual>30) percentual = 30
-	  let i = alturaTotal - (alturaTotal/100*percentual)
+      let j = alturaTotal - (alturaTotal / 100) * percentual;
+      let percentual_wid = window.innerWidth;
+      if (percentual > 30) {
+		  percentual = 30;
+	  }
+      let i = alturaTotal - (alturaTotal / 100) * percentual;
       document
         .getElementById("imagem")
         .setAttribute("style", "transform: rotate(" + deg + "deg);");
@@ -43,6 +48,28 @@ export default {
       document
         .getElementById("caixa-bkg")
         .setAttribute("style", "height: " + i + "px");
+      if (percentual < 30)
+        document
+          .getElementById("arvore")
+          .setAttribute(
+            "style",
+            "top: " +
+              (j - 200) +
+              "px;display:block;right:" +
+              (percentual_wid - (j - 100)) +
+              "px"
+          );
+      else
+        document
+          .getElementById("arvore")
+          .setAttribute(
+            "style",
+            "top: " +
+              (i - 200) +
+              "px;display:block;right:" +
+              (percentual_wid - (j - 100)) +
+              "px"
+          );
     };
   }
 };
@@ -73,5 +100,12 @@ h3 {
   z-index: 1;
   left: 0;
   width: 100%;
+}
+#arvore {
+  top: 2000px;
+  display: none;
+  height: 200px;
+  z-index: 9;
+  position: fixed;
 }
 </style>
